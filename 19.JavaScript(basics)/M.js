@@ -1,6 +1,8 @@
-a=9
-b=5
-console.log(a)
-console.log(b)
-console.log(a**b)
-console.log(a%b)
+let a;
+let c=0;
+let b=null;
+let d=0;
+console.log(a);
+console.log(b);
+console.log(c);
+console.log(d);
