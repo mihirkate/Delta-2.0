@@ -9,8 +9,11 @@ console.log(fruits);
 fruits[9] = "guawa";
 fruits[5] = "baboo;";
 console.log(fruits);
+//Array Methods
 let cars = ["Fer", "Bosc"];
 console.log(cars);
 cars.push("mihir");
 console.log(cars);
 console.log(cars.pop());
+console.log(cars.indexOf("Fer"));
+console.log(cars.includes("g"));
