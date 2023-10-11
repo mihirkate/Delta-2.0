@@ -3,3 +3,14 @@ console.log(
     el % 2 == 0;
   })
 );
+//Reducer
+/* .reduce(accumlator,element); 
+Accumalator matlab last time jo function ne return ki thi 
+vo value firse return hogi but current addition ke sath 
+*/
+let nums = [1, 2, 3, 4, 5, 6, 8];
+let final = nums.reduce((res, el) => {
+  console.log(res * el);
+  return res * el;
+});
+console.log(final);
