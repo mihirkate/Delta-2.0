@@ -1,8 +1,8 @@
-console.log(
+/* console.log(
   [12, 1, 2, 3, 4, 5].every((el) => {
     el % 2 == 0;
   })
-);
+); */
 //Reducer
 /* .reduce(accumlator,element); 
 Accumalator matlab last time jo function ne return ki thi 
@@ -16,12 +16,12 @@ let nums = [1, 2, 7, 9, 5, 6, 8];
 console.log(final); */
 
 // max in array
-let maxNo = nums.reduce((res, el) => {
+/* let maxNo = nums.reduce((res, el) => {
   if (el > res) {
     console.log(" ", el);
     return el;
   } else {
     return res;
   }
-});
-console.log(maxNo);
+}); 
+console.log(maxNo);*/
