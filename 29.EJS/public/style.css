@@ -1,0 +1,19 @@
+body {
+  background: rgb(34, 193, 195);
+  background: linear-gradient(
+    41deg,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(253, 187, 45, 1) 100%
+  );
+}
+
+img {
+  height: 200px;
+  width: 200px;
+}
+div {
+  margin: 2rem;
+  padding: 2rem;
+  border: solid black 3px;
+  background: linear-gradient(#7b4397, #dc2430);
+}

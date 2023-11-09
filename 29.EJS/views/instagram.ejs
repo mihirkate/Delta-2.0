@@ -1,0 +1,22 @@
+<%- include('includes/head.ejs') %>
+
+  <body>
+    <h1>welcome the <%= data.name %> page of Instagram</h1>
+    <button>Follow</button>
+    <button>Message</button>
+    <p>
+      followers :<%=data.followers %> &nbsp;&nbsp;&nbsp;&nbsp;
+      following:<%=data.following %>
+    </p>
+    <hr />
+    <div>
+      <% for (let post of data.posts){ %>
+      <img src="<%=post.image%>" alt="Some Image" />
+      <p>
+        likes :<%=post.likes %> &nbsp;&nbsp;&nbsp; comments: <%=post.comments %>
+      </p>
+      <% } %>
+    </div>
+    <%- include('includes/footer.ejs') %>
+  </body>
+</html>
