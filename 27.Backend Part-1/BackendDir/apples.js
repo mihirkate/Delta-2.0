@@ -1,4 +1,4 @@
-module.exports = {
+module.exports.apple = {
   name: "apple",
   season: "winter",
 };
