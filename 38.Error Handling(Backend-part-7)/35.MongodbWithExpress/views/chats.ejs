@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chats</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="header">
+      <h1>Chats Page.</h1>
+    </div>
+    <div class="chats">
+      <% for(let chat of chats){%>
+      <div class="chat">
+        <p>From:<%=chat.from%></p>
+        <br />
+        <div class="msg">
+          <p>Message: <%=chat.msg%></p>
+          <form method="GET" action="/chats/<%= chat._id %>/edit">
+            <button class="btn btn-light">Update chats</button>
+          </form>
+          <br />
+          <form method="POST" action="/chats/<%= chat._id %>/?_method=DELETE">
+            <button class="btn btn-light">Delete chat</button>
+          </form>
+        </div>
+        <br />
+        <p>To:<%=chat.to%></p>
+        <hr />
+
+        <div class="date">
+          <p class="date"><%= chat.created_at.toString().split(" ")[4] %></p>
+          <p>
+            <%= chat.created_at.toString().split(" ").slice(0,4).join(" ") %>
+          </p>
+        </div>
+      </div>
+      <% } %>
+      <hr />
+    </div>
+
+    <div class="newChat">
+      <div class="submit">
+        <form method="GET" action="/chats/new">
+          <button class="btn btn-primary btn-lg">Create New chat</button>
+        </form>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

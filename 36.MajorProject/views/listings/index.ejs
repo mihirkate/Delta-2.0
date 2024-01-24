@@ -1,0 +1,37 @@
+<% layout("/layouts/boilerplate")%>
+<body>
+  <h1>All Listings</h1>
+  <div>
+    <form method=" GET" action="/listings/new">
+      <button class="btn btn-outline-primary">Create New Post</button>
+    </form>
+
+    <!-- Row cards -->
+    <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1">
+    <%for(let listing of allListings ){%>
+      <a  class="listing-links" href="/listings/<%=listing._id%>">
+    <div class="card listing-card " style="width: 20rem" >
+      <img class="card-img-top" 
+      src="<%= listing.image %>" 
+      alt="listing-Image-notfound"  
+      style="height: 20rem" />
+      <div class="card-img-overlay"> </div>
+
+      <div class="card-body">
+        <p class="card-text">
+        <b> <%= listing.title %></b>
+          <br />
+          &#8377; <%=listing.price %> /night
+          <br />
+        </p>
+      </div>
+    </div>
+  </a>
+    <% }%>
+  </div>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"
+  ></script>
+</body>

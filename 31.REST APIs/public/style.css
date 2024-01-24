@@ -1,0 +1,23 @@
+.post {
+  width: 200px;
+  height: 250px;
+  margin: 2rem auto;
+  background-color: #140de5a5;
+  border-radius: 8px;
+  z-index: 1;
+  box-shadow: 0px 10px 10px rgb(73, 70, 92);
+  transition: 0.5s;
+  color: white;
+  padding: 0.5em;
+  .top {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+  }
+}
+h1 {
+  color: maroon;
+}
+a {
+  color: black;
+}
