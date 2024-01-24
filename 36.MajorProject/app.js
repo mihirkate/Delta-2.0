@@ -38,6 +38,7 @@ app.get("/getSignedCookie", (req, res) => {
   res.cookie("color", "red", { signed: true });
   res.send("Signed cookiw sent ");
 });
+app.get();
 app.get("/verify", (req, res) => {
   console.log(req.signedCookies);
   res.send("verified");
