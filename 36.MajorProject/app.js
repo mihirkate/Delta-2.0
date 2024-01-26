@@ -7,10 +7,15 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const cookieParser = require("cookie-parser");
-const listings = require("./routes/listing.js");
-const reviews = require("./routes/review.js");
+const listingsRouter = require("./routes/listing.js");
+const reviewsRouter = require("./routes/review.js");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passportLocalMongoose = require("passport-local-mongoose");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
+const userRouter = require("./routes/user.js");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -67,13 +72,35 @@ app.get("/", (req, res) => {
 });
 app.use(session(sessionOptions));
 app.use(flash());
+//====== using Passport as authenticator for our project
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+
+passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  res.locals.currUser = req.user;
   next();
 });
-app.use("/listings", listings);
-app.use("/listings/:id/reviews", reviews);
+app.get("/demo", async (req, res) => {
+  let fakeUser = new User({
+    email: "student@gmail.com",
+    username: "delta-student",
+  });
+  let registerdUser = await User.register(fakeUser, "helloworld");
+  res.send(registerdUser);
+});
+
+app.use("/listings", listingsRouter);
+app.use("/listings/:id/reviews", reviewsRouter);
+app.use("/", userRouter);
 
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found !!!!!!!"));
