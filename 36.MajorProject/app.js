@@ -9,6 +9,8 @@ const ExpressError = require("./utils/ExpressError.js");
 const cookieParser = require("cookie-parser");
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
+const session = require("express-session");
+const flash = require("connect-flash");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -17,6 +19,18 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate); //step 7
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(cookieParser("secretcode"));
+
+const sessionOptions = {
+  secret: "mysupersecretcode",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
+
 //===========================================
 //Mongo Db COnnection Setup
 ///==========================================
@@ -38,7 +52,7 @@ app.get("/getSignedCookie", (req, res) => {
   res.cookie("color", "red", { signed: true });
   res.send("Signed cookiw sent ");
 });
-app.get();
+
 app.get("/verify", (req, res) => {
   console.log(req.signedCookies);
   res.send("verified");
@@ -48,12 +62,18 @@ app.get("/verify", (req, res) => {
 Step 1
 */
 // using listings and reviews from /routes directory
-app.use("/listings", listings);
-app.use("/listings/:id/reviews", reviews);
-
 app.get("/", (req, res) => {
   res.send("Welcome To home Page ");
 });
+app.use(session(sessionOptions));
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  next();
+});
+app.use("/listings", listings);
+app.use("/listings/:id/reviews", reviews);
 
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found !!!!!!!"));

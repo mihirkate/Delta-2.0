@@ -32,11 +32,9 @@ router.post(
   validateListing,
   wrapAsync(async (req, res, next) => {
     // if Schema.js was not there then multiple ifs were used
-
     /*  if (!req.body.listing) {
         throw new ExpressError(400, "Send Valid data for Listing");
       } */
-
     /*  Since we are using Joi  validator  therefore we need not need multiple ifs 
       
       
@@ -67,7 +65,7 @@ router.post(
       if (!newlisting.price) {
         throw new ExpressError(400, "price is Missing");
       } */
-
+    req.flash("success", "New Listing Created!!");
     await newlisting.save();
     res.redirect("/listings");
   })
@@ -100,6 +98,7 @@ router.put(
       throw new ExpressError(400, "Send Valid data for Listing");
     }
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    req.flash("success", "Listing Updated !!");
     res.redirect(`/listings/${id}`);
   })
 );
@@ -112,6 +111,7 @@ router.delete(
     console.log("Deleting listing with id:", id); // Log the id
     let deletedListing = await Listing.findByIdAndDelete(id);
     console.log(deletedListing);
+    req.flash("success", "Listing Deleted !!");
     res.redirect("/listings");
   })
 );
