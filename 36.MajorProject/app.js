@@ -16,15 +16,6 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const userRouter = require("./routes/user.js");
-
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride("_method"));
-app.engine("ejs", ejsMate); //step 7
-app.use(express.static(path.join(__dirname, "/public")));
-app.use(cookieParser("secretcode"));
-
 const sessionOptions = {
   secret: "mysupersecretcode",
   resave: false,
@@ -35,6 +26,36 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
+app.engine("ejs", ejsMate); //step 7
+app.use(express.static(path.join(__dirname, "/public")));
+app.use(cookieParser("secretcode"));
+
+app.use(session(sessionOptions));
+app.use(flash());
+//====== using Passport as authenticator for our project
+app.use(passport.initialize());
+app.use(passport.session());
+
+//
+//===========================================
+//Accessing the Public folder thorugh below path
+///==========================================
+app.use(express.static(path.join(__dirname, "public")));
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  res.locals.currUser = req.user;
+  next();
+});
+app.use("/", userRouter);
+app.get("/getSignedCookie", (req, res) => {
+  res.cookie("color", "red", { signed: true });
+  res.send("Signed cookiw sent ");
+});
 
 //===========================================
 //Mongo Db COnnection Setup
@@ -48,21 +69,6 @@ async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust");
 }
 
-//
-//===========================================
-//Accessing the Public folder thorugh below path
-///==========================================
-app.use(express.static(path.join(__dirname, "public")));
-app.get("/getSignedCookie", (req, res) => {
-  res.cookie("color", "red", { signed: true });
-  res.send("Signed cookiw sent ");
-});
-
-app.get("/verify", (req, res) => {
-  console.log(req.signedCookies);
-  res.send("verified");
-});
-
 /*====================================
 Step 1
 */
@@ -70,37 +76,13 @@ Step 1
 app.get("/", (req, res) => {
   res.send("Welcome To home Page ");
 });
-app.use(session(sessionOptions));
-app.use(flash());
-//====== using Passport as authenticator for our project
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 passport.use(new LocalStrategy(User.authenticate()));
-
 passport.serializeUser(User.serializeUser());
-
 passport.deserializeUser(User.deserializeUser());
-
-app.use((req, res, next) => {
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
-  res.locals.currUser = req.user;
-  next();
-});
-app.get("/demo", async (req, res) => {
-  let fakeUser = new User({
-    email: "student@gmail.com",
-    username: "delta-student",
-  });
-  let registerdUser = await User.register(fakeUser, "helloworld");
-  res.send(registerdUser);
-});
 
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
-app.use("/", userRouter);
 
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found !!!!!!!"));
