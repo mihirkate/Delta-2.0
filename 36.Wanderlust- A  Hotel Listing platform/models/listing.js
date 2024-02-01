@@ -2,18 +2,14 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Review = require("./review.js");
 const listingSchema = new Schema({
-  title: String,
-
-  description: String,
-
-  image: {
+  title: {
     type: String,
-    default:
-      "https://unsplash.com/photos/a-swimming-pool-with-lounge-chairs-and-palm-trees-HDX63jhsD3o",
-    set: (v) =>
-      v === ""
-        ? "https://unsplash.com/photos/a-swimming-pool-with-lounge-chairs-and-palm-trees-HDX63jhsD3o"
-        : v,
+    required: true,
+  },
+  description: String,
+  image: {
+    url: String,
+    filename: String,
   },
 
   price: Number,
