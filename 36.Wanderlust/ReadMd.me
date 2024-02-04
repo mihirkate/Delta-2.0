@@ -1,0 +1,98 @@
+###
+/*====================================
+Step 2
+*/
+
+//===========================================
+// index route
+/*====================================
+Step 3
+*/
+
+/*===========================================
+//Accessing the new route 
+/*====================================
+Step 5 
+*/
+//=========================================
+
+//==============================================================================
+//==============================================================================
+// Step 4: Accessing the Show route
+/* 
+        let { id } = req.params;
+  let listing = await Listing.findById(id);
+
+//==============================================================================
+
+*/
+
+//==============================================================================
+// Step 6: Accessing the Show route
+/* 
+      let listing = await Listing.findById(id);
+
+//==============================================================================
+
+
+
+
+
+
+*/
+
+//==============================================================================
+// Step 7: Delete route
+/* 
+      let listing = await Listing.findById(id);
+
+//==============================================================================
+
+
+
+*/
+
+/* phase 2 part a
+creating Reviews and adding revies in the mongo db databse 
+
+
+
+
+============Reivies =============================
+post route ================
+
+*/
+
+/* Delete  Review 
+action="/listings/<%=listing._id%>/reviews/<%=review._id%> " 
+
+1. Review.findByIdAndDelete(reviewId);
+2. using pull operator 
+
+
+
+
+*/
+
+/* Phase 1 part c
+1. defining a middle ware 
+2. Define a custom wrapAsync function for handling errors 
+module.exports = (fn) => {
+  return (req, res, next) {
+    fn(req, res, next).catch(next);
+  };
+};
+3. creating custom error class 
+              class ExpressError extends Error {
+                      constructor(statusCode, message) {
+                      super();
+                        this.status = statusCode;
+                            this.message = message;
+  }
+}
+module.exports = ExpressError;
+
+
+
+ */
+ ###
