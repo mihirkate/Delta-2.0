@@ -10,6 +10,7 @@ body {
 }
 .container {
   flex: 1;
+  width: 100%;
 }
 .listings {
   margin: 1rem;
@@ -102,6 +103,7 @@ body {
   height: 30vh;
   object-fit: cover !important;
 }
+
 /* Maps */
 
 #map {

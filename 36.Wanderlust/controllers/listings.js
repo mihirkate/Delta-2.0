@@ -3,13 +3,16 @@ const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
+// index
 module.exports.index = async (req, res) => {
   const allListings = await Listing.find({});
   res.render("listings/index.ejs", { allListings });
 };
+// for New Route
 module.exports.renderNewForm = (req, res) => {
   res.render("listings/new.ejs");
 };
+// show listings
 module.exports.showListing = async (req, res) => {
   let { id } = req.params;
   let listing = await Listing.findById(id)
@@ -23,7 +26,7 @@ module.exports.showListing = async (req, res) => {
 
   if (!listing) {
     req.flash("error", "listing Not found");
-    res.redirect("/listings");
+    return res.redirect("/listings");
   }
 
   res.render("listings/show.ejs", { listing });
@@ -52,13 +55,12 @@ module.exports.createListing = async (req, res, next) => {
   res.redirect("/listings");
 };
 
-
 module.exports.renderEditForm = async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
   if (!listing) {
     req.flash("error", "Listing you requested for does not exist!");
-    res.redirect("/listings");
+    return res.redirect("/listings");
   }
 
   let originalImageUrl = listing.image.url;
@@ -78,7 +80,6 @@ module.exports.updateListing = async (req, res) => {
   }
   req.flash("success", "Listing Updated !!");
   res.redirect(`/listings/${id}`);
-  return;
 };
 
 // module.exports.updateListing = async (req, res) => {
@@ -106,5 +107,22 @@ module.exports.destroyListing = async (req, res) => {
   req.flash("success", "Listing Deleted !!");
   res.redirect("/listings");
 };
+
+/* 
+module.exports.destroyListing = async (req, res) => {
+  try {
+    let { id } = req.params;
+    console.log("Deleting listing with id:", id); // Log the id
+    let deletedListing = await Listing.findByIdAndDelete(id);
+    console.log(deletedListing);
+    req.flash("success", "Listing Deleted !!");
+    res.redirect("/listings");
+  } catch (error) {
+    // Handle any errors that might occur during deletion
+    console.error("Error occurred during listing deletion:", error);
+    req.flash("error", "Failed to delete listing.");
+    return res.redirect("/listings");
+  }
+}; */
 
 // ================================================================================================

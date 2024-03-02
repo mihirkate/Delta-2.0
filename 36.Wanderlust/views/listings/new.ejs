@@ -11,6 +11,8 @@
       enctype="multipart/form-data"
     >
       <div class="mb-3">
+        <!-- -----------------------  Listing Title    ----------------------- -->
+
         <label for="title" class="form-label">Title</label>
         <input
           name="listing[title]"
@@ -23,6 +25,8 @@
       </div>
 
       <div class="mb-3">
+        <!-- -----------------------  Listing Description   ----------------------- -->
+
         <label for="description" class="form-label">Description</label>
         <textarea
           type="text"
@@ -34,6 +38,8 @@
         ></textarea>
         <div class="invalid-feedback">Please Enter a short description</div>
       </div>
+
+      <!-- -----------------------  Listing Image   ----------------------- -->
 
       <div class="mb-3">
         <label for="image" class="form-label">Upload Listing Image</label>
@@ -47,6 +53,8 @@
 
       <div class="row">
         <div class="mb-3 col-md-4">
+          <!-- -----------------------  Listing price   ----------------------- -->
+
           <label for="price" class="form-label">Price</label>
           <input
             name="listing[price]"
@@ -59,33 +67,37 @@
           />
           <div class="invalid-feedback">Price should be valid</div>
         </div>
+        <!-- -----------------------  Listing Location   ----------------------- -->
 
-        <div class="mb-3 col-md-8">
-          <label for="country" class="form-label">Country</label>
+        <div class="mb-3">
+          <label for="location" class="form-label">Location</label>
           <input
-            name="listing[country]"
-            placeholder="India"
+            name="listing[location]"
+            placeholder="Maharashtra"
             type="text"
             class="form-control"
             required
           />
-          <div class="invalid-feedback">Country name should be valid</div>
+          <div class="invalid-feedback">Location should be valid</div>
         </div>
       </div>
 
-      <div class="mb-3">
-        <label for="location" class="form-label">Location</label>
+      <!-- -----------------------  Listing Country   ----------------------- -->
+      <%=listing.location %>
+      <div class="mb-3 col-md-8">
+        <label for="country" class="form-label">Country</label>
         <input
-          name="listing[location]"
-          placeholder="Maharashtra"
+          name="listing[country]"
+          placeholder="India"
           type="text"
           class="form-control"
           required
         />
-        <div class="invalid-feedback">Location should be valid</div>
+        <div class="invalid-feedback">Country name should be valid</div>
       </div>
 
-      <button class="btn btn-dark add-btn mt-3 mb-3">Add</button>
+      <!-- -----------------------  Add The Listing    ----------------------- -->
+      <button class="btn btn-dark add-btn mt-3 mb-3">Add Listing</button>
     </form>
   </div>
 </div>

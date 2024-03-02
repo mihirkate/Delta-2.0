@@ -1,18 +1,13 @@
 
 import './App.css';
-import Navbar from "./Navbar.jsx";
-import MsgBox from './MsgBox.jsx';
-
+import Button from "./Button";
+import Form from './Form';
 function App() {
     return ( 
-          <div>
-            <>
-            <Navbar/>
-            <MsgBox userName={"Mihir "} textColor={"Blue"}/>
-          </>
-    
-            </div>
-          
+      <>
+      <Button />
+      <Form/>
+      </>
 );
 
 }

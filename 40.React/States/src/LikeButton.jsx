@@ -3,10 +3,13 @@ import { useState } from "react";
 export function LikeButton() {
   let [isLiked, setisLiked] = useState(false);
   let [clicks, setClicks] = useState(0);
+
+  // ************** Like button function ************** //
   let toggleLike = () => {
     setisLiked(!isLiked);
     setClicks(clicks + 1);
   };
+
   let countLikes = () => {
     count = +1;
   };
