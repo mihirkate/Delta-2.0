@@ -1,10 +1,14 @@
 import { useState } from "react";
 export default function LudoBoard() {
   let [moves, setMoves] = useState({ blue: 0, red: 0, green: 0, yellow: 0 });
+  let [arr, setArr] = useState(["no moves "]);
   /* -----------------update The blue color ----------------- */
   let updateBlue = () => {
     moves.blue += 1;
     setMoves({ ...moves });
+    arr.push("blue moves");
+    setArr([...arr, "blue moves "]);
+    console.log(arr);
   };
   /* -----------------update The Red color ----------------- */
 
@@ -28,6 +32,7 @@ export default function LudoBoard() {
   return (
     <div>
       <p>game begins!!</p>
+      {arr}
       {/* ---------------- Blue  ----------------*/}
       <div className="board">
         <p>blue moves ={moves.blue}</p>
