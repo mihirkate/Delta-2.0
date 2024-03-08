@@ -59,6 +59,7 @@ const Customer = mongoose.model("Customer", customerSchema);
 };
 addCustomer(); */
 
+/*  */
 const addCust = async () => {
   let newCust = new Customer({
     name: "Karan",
@@ -71,6 +72,7 @@ const addCust = async () => {
   await newOrder.save();
   await newCust.save();
   console.log("added new customer ");
+  /* Printing The customer name  */
 };
 /* addCust(); */
 const deltCust = async () => {
