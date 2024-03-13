@@ -108,21 +108,4 @@ module.exports.destroyListing = async (req, res) => {
   res.redirect("/listings");
 };
 
-/* 
-module.exports.destroyListing = async (req, res) => {
-  try {
-    let { id } = req.params;
-    console.log("Deleting listing with id:", id); // Log the id
-    let deletedListing = await Listing.findByIdAndDelete(id);
-    console.log(deletedListing);
-    req.flash("success", "Listing Deleted !!");
-    res.redirect("/listings");
-  } catch (error) {
-    // Handle any errors that might occur during deletion
-    console.error("Error occurred during listing deletion:", error);
-    req.flash("error", "Failed to delete listing.");
-    return res.redirect("/listings");
-  }
-}; */
-
-// ================================================================================================
+//=====================================================================================
