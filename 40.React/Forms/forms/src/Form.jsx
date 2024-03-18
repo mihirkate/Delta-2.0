@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import CommentsForms from "./CommentsForm";
 export default function Form() {
   let [formData, setFormData] = useState({
     fullName: "",
@@ -24,24 +24,9 @@ export default function Form() {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="fullName">Fulllname &nbsp;</label>
-      <input
-        type="text"
-        placeholder="Your name here "
-        value={formData.fullName}
-        onChange={handleChange}
-        id="fullName"
-        name="fullName"
-      />
-      <input
-        type="text"
-        placeholder="Your username here "
-        value={formData.username}
-        onChange={handleChange}
-        id="fullName"
-        name="username"
-      />
-      <button>Submit </button>
+      <>
+        <CommentsForms />
+      </>
     </form>
   );
 }
