@@ -12,8 +12,9 @@ const marker = new mapboxgl.Marker({ color: "red" })
   .setPopup(new mapboxgl.Popup({ offset: 25 }))
   .setHTML("<h1>Hello world !!!!</h1>")
   .addToMap(map);
+
 /* 
-try {
+  try {
   mapboxgl.accessToken = mapToken;
   console.log(mapToken);
 
@@ -32,9 +33,9 @@ try {
         )
       )
       .addTo(map);
-  } /* else {
+  } else {
     throw new Error("Please fill the details carefully!");
-  } 
+  }
 } catch (error) {
   console.error("An error occurred:", error);
   throw new Error("Please fill the details carefully!");
