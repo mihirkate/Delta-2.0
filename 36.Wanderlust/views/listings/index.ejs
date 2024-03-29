@@ -1,136 +1,80 @@
-<% layout("/layouts/boilerplate")%>
-
-
 <style>
-  #filters{
+  .index_page_main_div {
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 1rem auto;
     display: flex;
-    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
   }
-  .filter{
-    margin: 1rem;
-    text-align: center;
-    opacity: 0.5;
-  }
-  .filter:hover{
-    opacity: 1;
-    cursor: pointer;
-  }
-  .i{
-    text-decoration: none;
 
-  }
-  #tax-info{
-    display: none;
-  }
-  .tax-toggle{
+  /* Adjustments for listing cards */
+  .row {
     display: flex;
-    align-items: center;
-    border: 1px solid black;
-    border-radius:3rem;
-    height:4.4rem;
-    padding:1rem;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    /* Adjusted for spacing around items */
+  }
+
+  .listing-card {
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    flex: 0 0 calc(33.333% - 20px);
+    /* Adjusts card width for 3 per row, accounting for margin */
+    box-sizing: border-box;
+  }
+
+  .listing-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 1220px) {
+    .index_page_main_div {
+      max-width: 1000px;
+    }
+  }
+
+  @media (max-width: 375px) {
+    .particular_listing_div {
+      width: 300px;
+    }
   }
 </style>
-<div id="filters">
 
-
-
-  <div class="filter">
-    <div><a href="/home"><i class="fa-solid fa-filter fa-1x"></i></a></div>
-    <p>Filter </p>
-  </div>
-
-
-  <div class="filter">
-    <div><a href="/home"><i class="fa-solid fa-fire fa-1x"></i></a></div>
-    <p>Trending  </p>
-  </div>
-
-
-
-  <div class="filter">
-    <div><a href="/home"><i  class="fa-solid fa-bed fa-1x"></i></a></div>
-    <p>Beds</p>
-  </div>
-
-
-
-  <div class="filter">
-    <div><a href="/home"><i class="fa-solid fa-mountain-city fa-1x"></i></a></div>
-    <p>Mountain city  </p>
-  </div>
-
-
-  <div class="filter">
-    <div><a href="/home"><i class="fa-brands fa-fort-awesome fa-1x"></i></a></div>
-    <p>Castles</p>
-  </div>
-
-
-  <div class="filter">
-    <div><a href="/home"><i class="fa-brands fa-fort-awesome fa-1x"></i></a></div>
-    <p>Amaxing Pools </p>
-
-
-
-  </div>
-  <div class="tax-toggle">
-
-    <div class="form-check-reverse form-switch">
-      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
-      <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
-    </div>
-  </div>
-
-</div>
-  <div>
-
-    <!-- Row cards -->
-    <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1">
+<% layout("/layouts/boilerplate")%>
+<div>
+  <!-- Row cards -->
+  <div class="index_page_main_div">
     <%for(let listing of allListings ){%>
-      <a  class="listing-links" href="/listings/<%=listing._id%>">
-    <div class="card listing-card " style="width: 20rem" >
-      <img class="card-img-top" 
-      src="<%= listing.image.url %>" 
-      alt="listing-Image-notfound"  
-      style="height: 20rem" />
-      <div class="card-img-overlay"> </div>
+    <a class="listing-links" href="/listings/<%=listing._id%>">
+      <div class="card listing-card" style="width: 20rem">
+        <img
+          class="card-img-top"
+          src="<%= listing.image.url %>"
+          alt="listing-Image-notfound"
+          style="height: 20rem"
+        />
+        <div class="card-img-overlay"></div>
 
-      <div class="card-body">
-        <p class="card-text">
-        <b> <%= listing.title %></b>
-          <br />
-          &#8377; <%=listing.price %> /night
-          <i class="tax-info">&nbsp;&nbsp;+18% +GST</i>
-          <br />
-        </p>
+        <div class="card-body">
+          <p class="card-text">
+            <b> <%= listing.title %> </b>
+            <br />
+            &#8377; <%=listing.price %> /night
+            <i class="tax-info">&nbsp;&nbsp;+18% +GST</i>
+            <br />
+          </p>
+        </div>
       </div>
-
-
-    </div>
-
-
-  </a>
+    </a>
     <% }%>
   </div>
+
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"
   ></script>
-  <script>
-    let taxSwitch=document.querySelectorById("flexSwitchCheckChecked");
-    taxSwitch.addEventListener("click",()=>{
-      let taxinfo=document.getElementsByClassName("taxSwitch");
- for(info of taxinfo){
-  if( info.style.display!="inline"){
-
-    info.style.display="inline"
-  }else{
-    info.style.display="none"
-
-  }
- }
-    })
-  </script>
-</body>
+</div>

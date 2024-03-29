@@ -1,0 +1,137 @@
+<% layout("layouts/boilerplate.ejs") %>
+
+<script>
+  const mapToken = "<%= process.env.MAP_TOKEN %>";
+  const listing = <% - JSON.stringify(listing) %>;
+</script>
+
+<div class="show_page_main_div">
+  <!------------------------------ listing information ------------------------------->
+  <div class="show_page_img_div">
+    <img src="<%= listing.image %>" alt="listing_img" />
+  </div>
+
+  <div class="show_page_details_div">
+    <p>
+      <b>Owner : </b>
+      <%= listing.owner.username %>
+    </p>
+    <p>
+      <b>Title : </b>
+      <%= listing.title %>
+    </p>
+    <p>
+      <b>Description : </b>
+      <%= listing.description %>
+    </p>
+    <p><b>Price : </b>&#8377;<%= listing.price %></p>
+    <p>
+      <b>Location : </b>
+      <%= listing.location %>
+    </p>
+    <p>
+      <b>Country : </b>
+      <%= listing.country %>
+    </p>
+  </div>
+
+  <% if(currentUser && currentUser._id.equals(listing.owner._id)) { %>
+
+  <div class="edit_delete_btns_div">
+    <form action="/listings/<%= listing._id %>/edit" method="get">
+      <button>Edit Listing</button>
+    </form>
+    <form action="/listings/<%= listing._id %>?_method=DELETE" method="post">
+      <button class="deleteListingConfirm">Delete Listing</button>
+    </form>
+  </div>
+
+  <% } %>
+  <!------------------------------ review form ------------------------------->
+  <% if(currentUser) { %>
+
+  <div class="review_form_div">
+    <p>Leave a Review</p>
+    <form
+      action="/listings/<%= listing._id %>/reviews"
+      method="post"
+      novalidate
+      class="needs-validation"
+    >
+      <input
+        type="number"
+        min="1"
+        max="5"
+        name="review[rating]"
+        autocomplete="off"
+        class="form-control"
+        required
+      />
+
+      <textarea
+        name="review[comment]"
+        cols="30"
+        rows="10"
+        autocomplete="off"
+        minlength="4"
+        class="form-control"
+        required
+      ></textarea>
+
+      <button type="submit">Submit review</button>
+    </form>
+  </div>
+
+  <% } %>
+
+  <!------------------------------ actual reviews ------------------------------->
+  <div class="actual_reviews_div">
+    <% listing.reviews.forEach((review)=> { %>
+    <div class="individual_review">
+      <p>
+        <b>Author : </b>
+        <%= review.author.username %>
+      </p>
+      <p>
+        <b>Rating : </b>
+        <%= review.rating %>
+      </p>
+      <p>
+        <b>Comment : </b>
+        <%= review.comment %>
+      </p>
+
+      <!------------------- review edit and delete buttons --------------------------->
+
+      <% if(currentUser && currentUser._id.equals(review.author._id)) { %>
+
+      <form
+        action="/listings/<%= listing._id %>/reviews/<%= review._id %>/edit"
+        method="get"
+      >
+        <button type="submit">Edit review</button>
+      </form>
+
+      <form
+        action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+        method="post"
+      >
+        <button type="submit" class="deleteReviewConfirm">Delete review</button>
+      </form>
+
+      <% } %>
+
+      <!-------------------- review edit and delete buttons -------------------------->
+    </div>
+    <% }) %>
+  </div>
+  <!-------------------- mapbox div and map functionality-------------------------->
+  <h2>where you'll be!</h2>
+  <div id="map"></div>
+</div>
+
+<!------------------------------ listing deletion confirmation popup------------------------------>
+<script src="/js/deletionHandler.js"></script>
+
+<!-------------------- mapbox script functionality-------------------------->
+<script src="/js/map.js"></script>

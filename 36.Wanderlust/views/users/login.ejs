@@ -1,45 +1,100 @@
-<% layout("/layouts/boilerplate")%>
+<% layout("layouts/boilerplate.ejs") %>
 
-<h1 class="col-6 offset-3"> Login  on WanderLust</h1>
-<div class="row">
-  <div class="col-6 offset-3">
-    <form action="/login" method="POST"class="needs-validation" novalidate >
-        <div class="mb-3">
-            <label for="username" class="form-label" > Username </label>
-            <br />
-    
-            <input
-              name="username"
-              id="username"
-              class="form-control"
-              aria-describedby="emailHelp"
-              name="listing[title]"
-              placeholder="username"
-              type="text"
-              required
-            />
+<style>
+  .signup_form_div {
+    min-height: 100vh;
+    max-width: 600px;
+    margin: 2rem auto;
+  }
 
-            <div class="valid-feedback"> Looks good!</div>
-            
-            <!-- Password  -->
-        <div class="mb-3">
-            <label for="password" class="form-label">password </label>
-            <br />
-            <input
-              name="password"
-              id="password"
-              class="form-control"
-              aria-describedby="emailHelp"
-              name="listing[title]"
-              placeholder="password"
-              type="password"
-              required
-            />
-            <div class="valid-feedback"> Looks good!</div>
-<br><br>
-<button class="btn btn-success">Login</button>
+  .signup_form_div form {
+    width: 100%;
+  }
 
+  .signup_particular_div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+  }
 
-    </form>
-  </div>
+  .signup_particular_div label {
+    font-size: 1.5rem;
+  }
+
+  .signup_particular_div input {
+    padding: 1rem;
+    font-size: 1.25rem;
+  }
+
+  .signup_form_div button {
+    width: 100%;
+    font-size: 2rem;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    color: #fff;
+    background-color: #000;
+    padding: 1rem;
+  }
+
+  /***************************** responsive layout css *****************************/
+  @media (max-width: 700px) {
+    .signup_form_div {
+      max-width: 400px;
+    }
+
+    .signup_particular_div label {
+      font-size: 1.25rem;
+    }
+
+    .signup_particular_div input {
+      font-size: 1rem;
+    }
+
+    .signup_form_div button {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (max-width: 450px) {
+    .signup_form_div {
+      max-width: 290px;
+    }
+
+    .signup_particular_div input {
+      padding: 0.5rem;
+    }
+
+    .signup_form_div button {
+      font-size: 1rem;
+    }
+  }
+</style>
+<div class="signup_form_div">
+  <form action="/login" method="post" class="needs-validation" novalidate>
+    <div class="signup_particular_div">
+      <label for="username" class="form-label">Username</label>
+      <input
+        type="text"
+        placeholder="Enter your name"
+        name="username"
+        class="form-control"
+        autocomplete="off"
+        required
+      />
+    </div>
+
+    <div class="signup_particular_div">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        name="password"
+        placeholder="Enter strong password"
+        autocomplete="off"
+        required
+      />
+    </div>
+    <button class="btn btn-success">LogIn</button>
+  </form>
 </div>
